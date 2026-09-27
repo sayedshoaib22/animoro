@@ -64,6 +64,13 @@ service cloud.firestore {
       allow delete: if isSuperOrDocAdmin() || (isSignedIn() && resource.data.authorId == request.auth.uid);
     }
 
+    // Article Image Assets Collection
+    match /imageAssets/{imageId} {
+      allow get, list: if isSuperOrDocAdmin();
+      allow create, update: if isSuperOrDocAdmin();
+      allow delete: if isSuperOrDocAdmin();
+    }
+
     // Categories Collection
     match /categories/{categoryId} {
       allow get, list: if true;
@@ -86,7 +93,7 @@ service cloud.firestore {
         request.auth.uid == 'X5WFM4C88cecVqry3wr4luIIVAv1' ||
         request.auth.uid == adminUid ||
         isSuperOrDocAdmin()
-        
+
       );
       allow delete: if isSuperOrDocAdmin();
     }
